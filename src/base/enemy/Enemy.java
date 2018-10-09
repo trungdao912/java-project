@@ -12,10 +12,12 @@ import tklibs.SpriteUtils;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Enemy extends GameObject implements Physics {
     Action action;
     BoxCollider collider;
+    int tick;
 
     public Enemy() {
         super();
@@ -34,6 +36,7 @@ public class Enemy extends GameObject implements Physics {
         this.defineAction();
     }
 
+
     void defineAction() {
         ActionWait actionWait = new ActionWait(20);
         Action actionFire = new Action() {
@@ -49,7 +52,21 @@ public class Enemy extends GameObject implements Physics {
             }
         };
 
-        ActionSequences actionSequences = new ActionSequences(actionWait, actionFire);
+        Action actionMove = new Action() {
+
+            @Override
+            public void run(GameObject master) {
+                move();
+                this.isDone = true;
+            }
+
+            @Override
+            public void reset() {
+                this.isDone = false;
+            }
+        };
+
+        ActionSequences actionSequences = new ActionSequences(actionWait, actionMove, actionFire);
         ActionRepeat actionRepeat = new ActionRepeat(actionSequences);
         this.action = actionRepeat;
     }
@@ -62,6 +79,14 @@ public class Enemy extends GameObject implements Physics {
     public void fire() {
             EnemyBullet bullet = GameObject.recycle(EnemyBullet.class);
             bullet.position.set(this.position.x, this.position.y + 5);
+    }
+
+    public void move() {
+        if (this.position.x < 0) {
+            this.destroy();
+        } else {
+            this.position.x = this.position.x - 10;
+        }
     }
 
     @Override
