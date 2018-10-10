@@ -2,6 +2,7 @@ package game;
 
 import base.*;
 import base.enemy.Enemy;
+import base.enemy.EnemyType1;
 import base.player.Player;
 import base.player.PlayerBullet;
 
@@ -20,7 +21,7 @@ public class GameCanvas extends JPanel {
         this.player = GameObject.create(Player.class);
 //        this.enemies = new ArrayList<>();
 
-        Enemy enemy = GameObject.create(Enemy.class);
+        EnemyType1 enemy = GameObject.create(EnemyType1.class);
 
 //        for (int i = 0; i < 4; i ++) {
 //            Enemy newEnemy = new Enemy();
@@ -44,21 +45,12 @@ public class GameCanvas extends JPanel {
     }
 //
 
-    public void render(Graphics g) {
-//        this.background.render(g);
-//        this.player.render(g);
-////        PlayerBullet.render(g);
-//        for (PlayerBullet playerBullet: playerPlayerBullets) {
-//            playerBullet.render(g);
-//        }
-//        for (Enemy enemy: enemies) {
-//            enemy.render(g);
-//        }
-        GameObject.renderAll(g);
+    public void render() {
+        GameObject.renderAllToBackBuffer();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
-        this.render(g);
+        GameObject.renderBackBufferToGame(g);
     }
 }

@@ -22,6 +22,10 @@ public class Vector2D {
         return result;
     }
 
+    public Vector2D addThis(Vector2D other) {
+        return this.addThis(other.x, other.y);
+    }
+
     public Vector2D addThis(float x, float y) {
         this.x += x;
         this.y += y;
@@ -33,10 +37,19 @@ public class Vector2D {
         return result;
     }
 
+
+    public Vector2D add(Vector2D other) {
+        return this.add(other.x, other.y);
+    }
+
     public Vector2D substractThis(float x, float y) {
         this.x -= x;
         this.y -= y;
         return this;
+    }
+
+    public Vector2D subtracThis(Vector2D other) {
+        return this.substractThis(other.x, other.y);
     }
 
     public Vector2D scale(float n) {
@@ -67,5 +80,9 @@ public class Vector2D {
         this.x = x;
         this.y = y;
         return this;
+    }
+
+    public Vector2D set(Vector2D other) {
+        return this.set(other.x, other.y);
     }
 }

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class PlayerBullet extends GameObject implements Physics {
     Vector2D velocity;
+    int damage;
     BoxCollider collider;
 
     public PlayerBullet() {
@@ -22,23 +23,19 @@ public class PlayerBullet extends GameObject implements Physics {
 //        photos.add(SpriteUtils.loadImage("assets/images/player-bullets/a/1.png"));
 //        photos.add(SpriteUtils.loadImage("assets/images/player-bullets/a/2.png"));
 //        photos.add(SpriteUtils.loadImage("assets/images/player-bullets/a/3.png"));
-        ArrayList<BufferedImage> photos = SpriteUtils.loadImages("assets/images/player-bullets/a/0.png",
-                "assets/images/player-bullets/a/1.png",
-                "assets/images/player-bullets/a/2.png",
-                "assets/images/player-bullets/a/3.png");
-        this.renderer = new AnimationRenderer(photos);
         this.position = new Vector2D(0, 0);
         this.velocity = new Vector2D(0,0);
-        this.collider = new BoxCollider(24, 24);
+
     }
 
 
     @Override
     public void run() {
         Enemy enemy = GameObject.intersect(Enemy.class, this);
+        System.out.println(enemy);
         if(enemy!= null) {
-            enemy.destroy();
-            this.destroy();
+            enemy.takeDamage(damage);
+            this.hitEnemy();
             return;
         }
         if (this.position.y < 0) {
@@ -46,6 +43,10 @@ public class PlayerBullet extends GameObject implements Physics {
             return;
         }
         this.position.addThis(velocity.x, velocity.y);
+    }
+
+    public void hitEnemy() {
+
     }
 
     @Override

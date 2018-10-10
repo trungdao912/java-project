@@ -29,6 +29,10 @@ public class BoxCollider {
         //oB = otherBoxcollider
         GameObject oM = (GameObject) other;
         BoxCollider oB = other.getBoxCollider();
+        System.out.println(this);
+        System.out.println(master);
+        System.out.println(oM);
+        System.out.println(oB);
         boolean yIntersect = ((this.top(master) >= oB.top(oM) && this.top(master) <= oB.bot(oM))
                 || (this.bot(master) >= oB.top(oM) && this.bot(master) < oB.bot(oM)));
         boolean xIntersect =(this.right(master) >= oB.left(oM) && this.right(master) < oB.right(oM)
